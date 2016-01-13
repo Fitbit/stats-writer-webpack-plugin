@@ -1,0 +1,14 @@
+{
+  "files": [
+    "lib/*.js",
+    "test/fixtures/**/*.js",
+    "index.js"
+  ],
+  "tests": [
+    "test/*spec.js"
+  ],
+  "testFramework": "jasmine",
+  "env": {
+    "type": "node"
+  }
+}
