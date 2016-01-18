@@ -8,4 +8,5 @@ Just saves `stats` object as is
 ## Usage
 
 ```javascript
-{"gitdown": "include", "file": "docs/samples/usage.js"}
+{"gitdown": "include", "file": "docs/samples/webpack.config.js"}
+```
