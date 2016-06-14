@@ -1,20 +1,23 @@
-[![NPM version](http://img.shields.io/npm/v/webpack-stats-writer-plugin.svg?style=flat)](https://www.npmjs.org/package/webpack-stats-writer-plugin) [![Travis build status](http://img.shields.io/travis/mdreizin/webpack-stats-writer-plugin/master.svg?style=flat)](https://travis-ci.org/mdreizin/webpack-stats-writer-plugin) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mdreizin/webpack-stats-writer-plugin?svg=true&branch=master)](https://ci.appveyor.com/project/mdreizin/webpack-stats-writer-plugin) [![Code Climate](https://codeclimate.com/github/mdreizin/webpack-stats-writer-plugin/badges/gpa.svg)](https://codeclimate.com/github/mdreizin/webpack-stats-writer-plugin) [![Code Climate](https://codeclimate.com/github/mdreizin/webpack-stats-writer-plugin/badges/coverage.svg)](https://codeclimate.com/github/mdreizin/webpack-stats-writer-plugin) [![Dependency Status](https://david-dm.org/mdreizin/webpack-stats-writer-plugin.svg?style=flat)](https://david-dm.org/mdreizin/webpack-stats-writer-plugin) [![Dependency Status](https://david-dm.org/mdreizin/webpack-stats-writer-plugin/dev-status.svg?style=flat)](https://david-dm.org/mdreizin/webpack-stats-writer-plugin#info=devDependencies)
+[![NPM version](http://img.shields.io/npm/v/stats-writer-webpack-plugin.svg?style=flat-square)](https://www.npmjs.org/package/stats-writer-webpack-plugin)
+[![Travis build status](http://img.shields.io/travis/mdreizin/webpack-stats-writer-plugin/master.svg?style=flat-square)](https://travis-ci.org/mdreizin/webpack-stats-writer-plugin)
+[![AppVeyor build status](https://img.shields.io/appveyor/ci/mdreizin/webpack-stats-writer-plugin/master.svg?style=flat-square)](https://ci.appveyor.com/project/mdreizin/webpack-stats-writer-plugin/branch/master)
+[![Code Climate GPA](https://img.shields.io/codeclimate/github/mdreizin/webpack-stats-writer-plugin.svg?style=flat-square)](https://codeclimate.com/github/mdreizin/webpack-stats-writer-plugin)
+[![Code Climate Coverage](https://img.shields.io/codeclimate/coverage/github/mdreizin/webpack-stats-writer-plugin.svg?style=flat-square)](https://codeclimate.com/github/mdreizin/webpack-stats-writer-plugin)
+[![Dependency Status](https://img.shields.io/david/mdreizin/webpack-stats-writer-plugin.svg?style=flat-square)](https://david-dm.org/mdreizin/webpack-stats-writer-plugin)
+[![Development Dependency Status](https://img.shields.io/david/dev/mdreizin/webpack-stats-writer-plugin.svg?style=flat-square)](https://david-dm.org/mdreizin/webpack-stats-writer-plugin#info=devDependencies)
 
-[webpack](https://github.com/webpack/webpack)-[stats](http://webpack.github.io/docs/node.js-api.html#stats)-writer-plugin
-=========================================================================================================================
+<h1 id="webpack-stats-writer-plugin">webpack-stats-writer-plugin</h1>
 
 Just saves `stats` object as is
 
-<h2 id="usage">Usage</h2>
+<h2 id="webpack-stats-writer-plugin-usage">Usage</h2>
 
 ```javascript
-'use strict';
+import StatsWriterWebpackPlugin from 'stats-writer-webpack-plugin';
 
-var StatsWriterPlugin = require('webpack-stats-writer-plugin');
-
-module.exports = {
+export default {
     plugins: [
-        new StatsWriterPlugin()
+        new StatsWriterWebpackPlugin()
     ]
 };
 
