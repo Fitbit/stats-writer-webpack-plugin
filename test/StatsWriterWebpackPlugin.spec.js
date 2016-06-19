@@ -28,11 +28,13 @@ describe('StatsWriterWebpackPlugin', () => {
             ]
         }));
 
-        const done = (err, stats) => {
+        const done = (err1, stats) => {
+            expect(err1).toEqual(null);
+
             const expected = stats.toJson();
 
-            readJson(join(options.output.path, filename), (err, actual) => {
-                expect(err).toEqual(null);
+            readJson(join(options.output.path, filename), (err2, actual) => {
+                expect(err2).toEqual(null);
                 expect(clean(expected)).toEqual(clean(actual));
 
                 callback();
@@ -60,7 +62,7 @@ describe('StatsWriterWebpackPlugin', () => {
                 output: {
                     path: TMP_DIR
                 }
-            }
+            };
         });
 
         describe('#run()', () => {
@@ -73,7 +75,7 @@ describe('StatsWriterWebpackPlugin', () => {
                     profile: true
                 });
 
-                compile('stats1.json', options, done)
+                compile('stats1.json', options, done);
             });
         });
 
@@ -81,7 +83,7 @@ describe('StatsWriterWebpackPlugin', () => {
             beforeEach(() => {
                 options = Object.assign(options, {
                     watchOptions: {}
-                })
+                });
             });
 
             it('should save `stats.json` successfully', done => compile(undefined, options, done));
