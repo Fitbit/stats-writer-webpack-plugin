@@ -11,7 +11,7 @@ import StatsWriterWebpackPlugin from '../src/index';
 describe('StatsWriterWebpackPlugin', () => {
     const TMP_DIR = './test/tmp';
 
-    const clean = (stats) => {
+    const clean = stats => {
         // NOTE (mdreizin): `time` does't exist in `emit` phase
         delete stats.time;
 
@@ -21,26 +21,31 @@ describe('StatsWriterWebpackPlugin', () => {
         return stats;
     };
 
-    const compile = (dirname, filename = 'stats.json', done) => {
-        webpack({
-            debug: true,
-            profile: true,
-            timings: true,
-            output: {
-                path: dirname
-            },
+    const compile = (filename = 'stats.json', options = {}, callback) => {
+        const compiler = webpack(Object.assign({}, options, {
             plugins: [
                 new StatsWriterWebpackPlugin(filename)
             ]
-        }, (err, stats) => {
+        }));
+
+        const done = (err1, stats) => {
+            expect(err1).toEqual(null);
+
             const expected = stats.toJson();
 
-            readJson(join(dirname, filename), (_, actual) => {
+            readJson(join(options.output.path, filename), (err2, actual) => {
+                expect(err2).toEqual(null);
                 expect(clean(expected)).toEqual(clean(actual));
 
-                done();
+                callback();
             });
-        });
+        };
+
+        if (options.watchOptions) {
+            compiler.watch(options.watchOptions, done);
+        } else {
+            compiler.run(done);
+        }
     };
 
     beforeEach(() => spyOn(console, 'log'));
@@ -48,8 +53,40 @@ describe('StatsWriterWebpackPlugin', () => {
     afterEach(done => remove(TMP_DIR, done));
 
     describe('#apply()', function() {
-        it('should save `stats.json` successfully', done => compile(TMP_DIR, undefined, done));
+        let options;
 
-        it('should save `stats1.json` successfully', done => compile(TMP_DIR, 'stats1.json', done));
+        beforeEach(() => {
+            options = {
+                debug: true,
+                profile: false,
+                output: {
+                    path: TMP_DIR
+                }
+            };
+        });
+
+        describe('#run()', () => {
+            it('should save `stats.json` successfully', done => compile(undefined, options, done));
+
+            it('should save `stats1.json` successfully', done => compile('stats1.json', options, done));
+
+            it('should add missing `timings`', done => {
+                options = Object.assign(options, {
+                    profile: true
+                });
+
+                compile('stats1.json', options, done);
+            });
+        });
+
+        describe('#watch()', () => {
+            beforeEach(() => {
+                options = Object.assign(options, {
+                    watchOptions: {}
+                });
+            });
+
+            it('should save `stats.json` successfully', done => compile(undefined, options, done));
+        });
     });
 });
