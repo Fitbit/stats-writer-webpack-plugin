@@ -43,7 +43,7 @@
     "eslint": "^3.2.2",
     "eslint-config-mdreizin": "^1.1.1",
     "eslint-plugin-babel": "^3.3.0",
-    "gh-pages": "^0.11.0",
+    "gh-pages": "^0.12.0",
     "gitdown": "^2.4.8",
     "jasmine": "^2.4.1",
     "jasmine-spec-reporter": "^2.4.0",
