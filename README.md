@@ -7,6 +7,8 @@
 [![Development Dependency Status](https://img.shields.io/david/dev/Fitbit/stats-writer-webpack-plugin.svg?style=flat-square)](https://david-dm.org/Fitbit/stats-writer-webpack-plugin#info=devDependencies)
 
 # stats-writer-webpack-plugin
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Fitbit/stats-writer-webpack-plugin.svg)](https://greenkeeper.io/)
 > Saves `stats` object as is
 
 ## Installation
