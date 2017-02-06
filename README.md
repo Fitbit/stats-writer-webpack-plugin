@@ -6,11 +6,9 @@
 [![Dependency Status](https://img.shields.io/david/Fitbit/stats-writer-webpack-plugin.svg?style=flat-square)](https://david-dm.org/Fitbit/stats-writer-webpack-plugin)
 [![Development Dependency Status](https://img.shields.io/david/dev/Fitbit/stats-writer-webpack-plugin.svg?style=flat-square)](https://david-dm.org/Fitbit/stats-writer-webpack-plugin#info=devDependencies)
 
-<a name="stats-writer-webpack-plugin"></a>
 # stats-writer-webpack-plugin
 > Saves `stats` object as is
 
-<a name="stats-writer-webpack-plugin-installation"></a>
 ## Installation
 
 ```bash
@@ -23,7 +21,6 @@ or
 yarn add stats-writer-webpack-plugin --dev
 ```
 
-<a name="stats-writer-webpack-plugin-usage"></a>
 ## Usage
 
 `./webpack.config.js`
@@ -36,5 +33,4 @@ export default {
         new StatsWriterWebpackPlugin()
     ]
 };
-
 ```
