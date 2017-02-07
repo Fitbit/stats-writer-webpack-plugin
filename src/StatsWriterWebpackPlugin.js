@@ -1,5 +1,5 @@
 import {
-    resolve
+    resolve as resolvePath
 } from 'path';
 import {
     readJson,
@@ -14,6 +14,12 @@ import RawSource from 'webpack-core/lib/RawSource';
 const DEFAULT_FILENAME = 'stats.json';
 
 /**
+ * @private
+ * @type {WeakMap}
+ */
+const FILENAME = new WeakMap();
+
+/**
  * @class
  */
 class StatsWriterWebpackPlugin {
@@ -22,7 +28,15 @@ class StatsWriterWebpackPlugin {
      * @param {String} [filename='stats.json']
      */
     constructor(filename = DEFAULT_FILENAME) {
-        this.filename = filename;
+        FILENAME.set(this, filename);
+    }
+
+    /**
+     * @readonly
+     * @type {String}
+     */
+    get filename() {
+        return FILENAME.get(this);
     }
 
     /**
@@ -54,8 +68,9 @@ class StatsWriterWebpackPlugin {
         });
 
         compiler.plugin('emit', (compilation, callback) => {
-            const profile = compilation.options.profile === true,
-                debug = compilation.options.debug === true;
+            const statsOptions = compilation.options.stats || {},
+                profile = statsOptions.profile === true,
+                debug = compilation.options.devtool !== false;
 
             endTime = new Date().getTime();
 
@@ -63,9 +78,7 @@ class StatsWriterWebpackPlugin {
                 spaces = '\t';
             }
 
-            const stats = compilation.getStats().toJson({
-                timings: profile
-            });
+            const stats = compilation.getStats().toJson(statsOptions);
 
             if (!stats.time && profile) {
                 timings = true;
@@ -81,12 +94,12 @@ class StatsWriterWebpackPlugin {
 
             if (timings) {
                 const asset = compilation.assets[this.filename],
-                    existsAt = resolve(asset.existsAt);
+                    filename = resolvePath(asset.existsAt);
 
-                readJson(existsAt, { 'throws': false }, (err, stats) => {
+                readJson(filename, { 'throws': false }, (err, stats) => {
                     stats.time = endTime - startTime;
 
-                    writeJson(existsAt, stats, { spaces }, callback);
+                    writeJson(filename, stats, { spaces }, callback);
                 });
             } else {
                 callback();
