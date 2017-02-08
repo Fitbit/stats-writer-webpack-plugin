@@ -1,92 +1,79 @@
 import {
-    join
-} from 'path';
-import {
     readJson,
     remove
 } from 'fs-extra';
 import webpack from 'webpack';
+import WEBPACK_CONFIG from './fixtures/webpack.config';
 import StatsWriterWebpackPlugin from '../src/index';
 
 describe('StatsWriterWebpackPlugin', () => {
-    const TMP_DIR = './test/tmp';
+    const TMP_DIR = './test/fixtures/tmp',
+        STATS_FILENAME = 'stats.json';
 
-    const clean = stats => {
-        // NOTE (mdreizin): `time` does't exist in `emit` phase
-        delete stats.time;
+    function buildConfig(filename, options = {}) {
+        const config = Object.assign({}, WEBPACK_CONFIG, options);
 
-        // NOTE (mdreizin): `stats.json` is emitted, but `stats.json` is saved without it
-        stats.assets = [];
+        config.plugins.push(new StatsWriterWebpackPlugin(filename));
 
-        return stats;
-    };
+        return config;
+    }
 
-    const compile = (filename = 'stats.json', options = {}, callback) => {
-        const compiler = webpack(Object.assign({}, options, {
-            plugins: [
-                new StatsWriterWebpackPlugin(filename)
-            ]
-        }));
-
-        const done = (err1, stats) => {
-            expect(err1).toEqual(null);
-
-            const expected = stats.toJson();
-
-            readJson(join(options.output.path, filename), (err2, actual) => {
-                expect(err2).toEqual(null);
-                expect(clean(expected)).toEqual(clean(actual));
-
-                callback();
-            });
-        };
+    function compileConfig(options = {}, callback) {
+        const compiler = webpack(options);
 
         if (options.watchOptions) {
-            compiler.watch(options.watchOptions, done);
+            compiler.watch(options.watchOptions, callback);
         } else {
-            compiler.run(done);
+            compiler.run(callback);
         }
-    };
+    }
+
+    function compileAndCheck(filename, options = {}, callback) {
+        const config = buildConfig(filename, options);
+
+        compileConfig(config, (err, stats) => {
+            expect(err).toEqual(null);
+
+            readJson(stats.compilation.assets[filename].existsAt, (innerErr, json) => {
+                expect(innerErr).toEqual(null);
+
+                callback(json);
+            });
+        });
+    }
 
     beforeEach(() => spyOn(console, 'log'));
 
     afterEach(done => remove(TMP_DIR, done));
 
-    describe('#apply()', function() {
-        let options;
-
-        beforeEach(() => {
-            options = {
-                debug: true,
-                profile: false,
-                output: {
-                    path: TMP_DIR
-                }
-            };
-        });
-
+    describe('#apply()', () => {
         describe('#run()', () => {
-            it('should save `stats.json` successfully', done => compile(undefined, options, done));
+            it('should save stats successfully', done => compileAndCheck(STATS_FILENAME, {
+                devtool: 'source-map'
+            }, done));
 
-            it('should save `stats1.json` successfully', done => compile('stats1.json', options, done));
+            it('should add missing timings', done => {
+                compileAndCheck(STATS_FILENAME, {
+                    devtool: 'source-map',
+                    stats: {
+                        profile: true
+                    }
+                }, stats => {
+                    expect(stats.time).not.toBeUndefined();
 
-            it('should add missing `timings`', done => {
-                options = Object.assign(options, {
-                    profile: true
+                    done();
                 });
-
-                compile('stats1.json', options, done);
             });
         });
 
         describe('#watch()', () => {
-            beforeEach(() => {
-                options = Object.assign(options, {
-                    watchOptions: {}
-                });
-            });
-
-            it('should save `stats.json` successfully', done => compile(undefined, options, done));
+            it('should save stats successfully', done => compileAndCheck(STATS_FILENAME, {
+                devtool: 'source-map',
+                stats: {
+                    profile: false
+                },
+                watchOptions: {}
+            }, done));
         });
     });
 });
