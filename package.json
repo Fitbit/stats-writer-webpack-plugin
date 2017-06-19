@@ -48,7 +48,7 @@
     "jsdoc": "^3.4.0",
     "semantic-release": "^6.3.2",
     "travis-after-all": "^1.4.4",
-    "webpack": "^2.2.1"
+    "webpack": "^3.0.0"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
