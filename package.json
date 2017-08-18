@@ -20,6 +20,9 @@
     "type": "git",
     "url": "https://github.com/Fitbit/stats-writer-webpack-plugin.git"
   },
+  "release": {
+    "analyzeCommits": "semantic-release-conventional-commits"
+  },
   "keywords": [
     "webpack",
     "stats"
@@ -45,6 +48,7 @@
     "jasmine-spec-reporter": "^4.1.1",
     "jsdoc": "^3.5.3",
     "semantic-release": "^7.0.1",
+    "semantic-release-conventional-commits": "^1.1.0",
     "webpack": "^3.4.1"
   },
   "dependencies": {
