@@ -4,29 +4,20 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf ./dist ./coverage ./docs",
-    "eslint": "eslint --ext=js,md ./ --cache",
+    "lint": "eslint --ext=js,md ./ --cache",
     "test": "babel-node ./jasmine.js",
     "build": "babel ./src --out-dir ./dist --source-maps",
-    "cover": "babel-node ./node_modules/.bin/babel-istanbul cover jasmine JASMINE_CONFIG_PATH=./jasmine.json",
+    "cover":
+      "babel-node ./node_modules/.bin/babel-istanbul cover jasmine JASMINE_CONFIG_PATH=./jasmine.json",
     "codeclimate": "codeclimate-test-reporter < ./coverage/lcov.info",
-    "jsdoc": "jsdoc ./src -c ./jsdoc.json",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "jsdoc": "jsdoc ./src -c ./jsdoc.json"
   },
-  "files": [
-    "dist/",
-    "src/"
-  ],
+  "files": ["dist/", "src/"],
   "repository": {
     "type": "git",
     "url": "https://github.com/Fitbit/stats-writer-webpack-plugin.git"
   },
-  "release": {
-    "analyzeCommits": "semantic-release-conventional-commits"
-  },
-  "keywords": [
-    "webpack",
-    "stats"
-  ],
+  "keywords": ["webpack", "stats"],
   "author": "Marat Dreizin <marat.dreizin@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
@@ -34,25 +25,24 @@
   },
   "homepage": "https://github.com/Fitbit/stats-writer-webpack-plugin",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
     "babel-istanbul": "^0.12.2",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "codeclimate-test-reporter": "^0.5.0",
-    "eslint": "^4.3.0",
-    "eslint-plugin-babel": "^4.1.2",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-markdown": "^1.0.0-beta.6",
-    "jasmine": "^2.7.0",
-    "jasmine-spec-reporter": "^4.1.1",
-    "jsdoc": "^3.5.3",
-    "semantic-release": "^7.0.1",
-    "semantic-release-conventional-commits": "^1.1.0",
-    "webpack": "^3.4.1"
+    "jasmine":"^3.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "jsdoc": "^3.5.5",
+    "semantic-release": "^15.1.7",
+    "travis-deploy-once": "^4.4.1",
+    "webpack": "^4.6.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.25.0",
-    "fs-extra": "^4.0.0",
+    "babel-runtime": "^6.26.0",
+    "fs-extra": "^5.0.0",
     "webpack-core": "^0.6.9"
   }
 }

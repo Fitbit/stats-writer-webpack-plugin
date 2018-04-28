@@ -69,7 +69,6 @@ class StatsWriterWebpackPlugin {
 
         compiler.plugin('emit', (compilation, callback) => {
             const statsOptions = compilation.options.stats || {},
-                profile = statsOptions.profile === true,
                 debug = compilation.options.devtool !== false;
 
             endTime = new Date().getTime();
@@ -80,7 +79,7 @@ class StatsWriterWebpackPlugin {
 
             const stats = compilation.getStats().toJson(statsOptions);
 
-            if (!stats.time && profile) {
+            if (!stats.time) {
                 timings = true;
             }
 
