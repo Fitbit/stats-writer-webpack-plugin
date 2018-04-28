@@ -54,10 +54,7 @@ describe('StatsWriterWebpackPlugin', () => {
 
             it('should add missing timings', done => {
                 compileAndCheck(STATS_FILENAME, {
-                    devtool: 'source-map',
-                    stats: {
-                        profile: true
-                    }
+                    devtool: 'source-map'
                 }, stats => {
                     expect(stats.time).not.toBeUndefined();
 
@@ -69,9 +66,6 @@ describe('StatsWriterWebpackPlugin', () => {
         describe('#watch()', () => {
             it('should save stats successfully', done => compileAndCheck(STATS_FILENAME, {
                 devtool: 'source-map',
-                stats: {
-                    profile: false
-                },
                 watchOptions: {}
             }, done));
         });
