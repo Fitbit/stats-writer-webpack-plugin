@@ -3338,9 +3338,9 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-jasmine-core@~3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.1.0.tgz#a4785e135d5df65024dfc9224953df585bd2766c"
+jasmine-core@~3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.3.0.tgz#dea1cdc634bc93c7e0d4ad27185df30fa971b10e"
 
 jasmine-spec-reporter@^4.2.1:
   version "4.2.1"
@@ -3348,12 +3348,12 @@ jasmine-spec-reporter@^4.2.1:
   dependencies:
     colors "1.1.2"
 
-jasmine@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-3.1.0.tgz#2bd59fd7ec6ec0e8acb64e09f45a68ed2ad1952a"
+jasmine@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/jasmine/-/jasmine-3.3.0.tgz#4f64e4aba2f9cbd30418957468c024c3b4c82551"
   dependencies:
     glob "^7.0.6"
-    jasmine-core "~3.1.0"
+    jasmine-core "~3.3.0"
 
 java-properties@^0.2.9:
   version "0.2.10"
